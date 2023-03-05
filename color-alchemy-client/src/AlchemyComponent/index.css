@@ -3,9 +3,9 @@
 }
 .ele {
   display: inline-block;
-  height: 30px;
-  width: 30px;
-  border:2px solid rgb(184,184,184);
+  height: 36px;
+  width: 36px;
+  border: 2px solid rgb(184,184,184);
 }
 .tooltip {
   position: absolute;

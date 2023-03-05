@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useCallback, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import './index.css';
 import { updateSource, getDiffInfo, diff } from '../utils';
-import { RGBType, Tuple, BasicInfo } from '../App';
-import { RGBComponent } from "./RGBElement";
-
-interface AlchemyProptypes {
-  basicInfo: BasicInfo;
-  handleSetDiff: Function;
-  handleChangeMoves: Function;
-  setClosetColor: Dispatch<SetStateAction<RGBType | undefined>>;
-}
-
-export type HandleClickType = (row: number, col: number) => void;
-export type HandleDropType = (row: number, col: number, color: RGBType) => void;
+import {
+  RGBType,
+  Tuple,
+  AlchemyProptypes,
+  HandleClickType,
+  HandleDropType
+} from '../types';
+import { RGBComponent } from "./RGBComponent";
 
 const firstThreeMoves = [
   [255, 0, 0],

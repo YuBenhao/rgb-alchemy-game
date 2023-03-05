@@ -1,17 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
 import AlchemyComponent, { RGBComponent, INIT_RGB } from './AlchemyComponent';
 
-
-export type Tuple<T, length extends number> = [T, ...T[]] & { length: length };
-export type RGBType = Tuple<number, 3>;
-
-export interface BasicInfo {
-  userId: string;
-  width: number;
-  height: number;
-  maxMoves: number;
-  target: RGBType;
-}
+import { BasicInfo, RGBType } from './types';
 
 const BASE_URL = 'http://localhost:9876/';
 const App: React.FC = () => {
@@ -101,9 +92,8 @@ const App: React.FC = () => {
         </div>
       </div>
       {
-        loading ?
-          <div className='loading'>Loading...</div>
-          : (
+        loading ? null :
+          (
             <AlchemyComponent
               basicInfo={basicInfo}
               handleSetDiff={handleSetDiff}

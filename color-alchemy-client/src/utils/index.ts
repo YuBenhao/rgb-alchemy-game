@@ -1,16 +1,13 @@
 
-import { RGBType, Tuple } from "../App";
-type TranformToRGBType = (color: RGBType) => string;
-type DiffType = (originColor: RGBType, targetColor: RGBType) => number;
-type updateSourceType = (colorBoard: RGBType[][], row: number, col: number, color: RGBType, width: number, height: number) => RGBType[][];
-type GenerateDiffRGBType = (row: number, col: number, color: RGBType, width: number, height: number) => RGBType[];
-
-interface DiffInfo {
-  closetPos: Tuple<number, 2>;
-  diff: number;
-};
-
-type GetDiffInfo = (colorBoard: RGBType[][], targetColor: RGBType) => DiffInfo;
+import {
+  TranformToRGBType,
+  GetDiffInfo,
+  DiffType,
+  DiffInfo,
+  GenerateDiffRGBType,
+  RGBType,
+  updateSourceType
+} from "../types";
 
 export const tranformToRGB: TranformToRGBType = color => `rgb(${color.join(',')})`;
 // get closest color position and diff value 
