@@ -1,0 +1,57 @@
+.eleWrapper {
+  position: relative;
+}
+.ele {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  border:2px solid rgb(184,184,184);
+}
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  top: 40px;
+  left: 15px;
+  background-color: rgb(217, 216,224);
+}
+.hiddenTip {
+  display: none;
+}
+
+
+.tile {
+  border-radius: 3px;
+}
+
+.source {
+  border-radius: 50%;
+}
+
+.row {
+  margin: 1px 0;
+}
+
+.col {
+  margin: 0 2px;
+  display: inline-block;
+}
+
+.alchemyWrapper {
+  margin-top: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.closet {
+  border-color: red;
+}
