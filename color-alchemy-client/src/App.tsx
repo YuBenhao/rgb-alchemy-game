@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import AlchemyComponent, { RGBComponent, INIT_RGB } from './AlchemyComponent';
 
@@ -23,13 +23,16 @@ const App: React.FC = () => {
   // closet color
   const [closetColor, setClosetColor] = useState<RGBType | undefined>();
 
-  const fetchData = useCallback(async (path = '') => {
+  const searchRef = useRef<any>();
+  const reRef = useRef<any>();
+
+  searchRef.current = async (path = '') => {
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}init${path}`);
       const data = await res.json();
       if (data.target.every((i: number) => i === 0)) {
-        reFetchData();
+        reRef.current();
         return;
       }
       setBasicInfo(data);
@@ -39,24 +42,23 @@ const App: React.FC = () => {
     } finally {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   useEffect(() => {
     // initialized
-    fetchData().then(() => setInitialized(true));
-  }, [fetchData]);
+    searchRef.current().then(() => setInitialized(true));
+  }, []);
 
-  const reFetchData = useCallback(() => {
+  reRef.current = useCallback(() => {
     // use settimeout for stopping window.confirm from blocking basic info display
     setTimeout(() => {
       const msg = `${maxMoves === 0 ? `Fails` : 'Wins'}: Do you wanna try again?`;
       const confirm = window.confirm(msg);
       if (confirm) {
-        fetchData(`/user/${basicInfo.userId}`);
+        searchRef.current(`/user/${basicInfo.userId}`);
       }
     });
-  }, [maxMoves, basicInfo.userId, fetchData]);
+  }, [maxMoves, basicInfo.userId]);
 
 
   // minus moves, if it reaches to zero, restart the game
@@ -66,17 +68,17 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (initialized && maxMoves === 0) {
-      reFetchData();
+      reRef.current();
     }
-  }, [maxMoves, reFetchData, initialized, diff]);
+  }, [maxMoves, initialized, diff]);
 
   // if diff < 10%, restart the game
   const handleSetDiff = useCallback(diff => {
     setDiff(diff);
     if (initialized && diff < 10) {
-      reFetchData();
+      reRef.current();
     }
-  }, [reFetchData, initialized]);
+  }, [initialized]);
 
   return (
     <div className='container'>
